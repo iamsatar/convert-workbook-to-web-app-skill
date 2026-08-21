@@ -1,0 +1,14 @@
+interface:
+  display_name: Convert Workbook to Web App
+  short_description: Turn Excel workflows into working web apps
+  default_prompt: Use $convert-workbook-to-web-app to analyze this workbook, propose
+    a web-app blueprint, and build it after I approve the plan.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
