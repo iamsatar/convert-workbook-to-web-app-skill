@@ -60,16 +60,197 @@ Browser storage is only recommended for non-sensitive, single-browser prototypes
 
 ## Installation
 
-Clone or copy this repository into the skills directory used by your agent harness:
+Review the repository's `SKILL.md` and bundled scripts before installing any third-party skill.
 
-```bash
-git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git
+Repository:
+
+```text
+https://github.com/iamsatar/convert-workbook-to-web-app-skill
 ```
 
-Configure the harness to load the repository's `SKILL.md` file. The exact installation path depends on the harness.
+### Interoperable `.agents/skills` installation
 
-The skill is intentionally environment-neutral and can be used by compatible agent harnesses that support instruction-based skills and local resources.
+Codex, GitHub Copilot, Gemini CLI, Cursor, Windsurf, and OpenCode all recognize `.agents/skills`. Use this location when you want one checked-in copy to work across several compatible agents.
 
+Install for one project:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .agents/skills/convert-workbook-to-web-app
+```
+
+Install for your user account:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.agents/skills/convert-workbook-to-web-app"
+```
+
+Claude Code does not use the `.agents/skills` location directly; use its `.claude/skills` directory instead.
+
+### OpenAI Codex
+
+Codex discovers project skills from `.agents/skills/` and personal skills from `~/.agents/skills/`.
+
+Project installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .agents/skills/convert-workbook-to-web-app
+```
+
+Personal installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.agents/skills/convert-workbook-to-web-app"
+```
+
+Invoke it with `$convert-workbook-to-web-app`, or open `/skills` in Codex CLI or the IDE extension to confirm it is available.
+
+[OpenAI skill documentation](https://learn.chatgpt.com/docs/build-skills.md)
+
+### Claude Code
+
+Claude Code discovers project skills from `.claude/skills/` and personal skills from `~/.claude/skills/`.
+
+Project installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .claude/skills/convert-workbook-to-web-app
+```
+
+Personal installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.claude/skills/convert-workbook-to-web-app"
+```
+
+Invoke it with `/convert-workbook-to-web-app`. Claude Code detects changes live when the skills directory already exists; if you created the top-level skills directory during a session, start a new session.
+
+[Claude Code skill documentation](https://code.claude.com/docs/en/skills)
+
+### GitHub Copilot
+
+GitHub Copilot supports project skills in `.github/skills/`, `.claude/skills/`, or `.agents/skills/`. Personal skills can live in `~/.copilot/skills/` or `~/.agents/skills/`.
+
+Project installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .github/skills/convert-workbook-to-web-app
+```
+
+Personal installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.copilot/skills/convert-workbook-to-web-app"
+```
+
+In Copilot CLI, run `/skills reload`, then `/skills info convert-workbook-to-web-app`. Invoke it explicitly as `/convert-workbook-to-web-app`, or let Copilot select it when the request matches its description.
+
+[GitHub Copilot skill documentation](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)
+
+### Gemini CLI
+
+Gemini CLI can install a skill directly from a Git repository:
+
+```bash
+gemini skills install \
+  https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  --scope user
+```
+
+Use `--scope workspace` instead for the current project. Gemini also discovers manual installations from `.gemini/skills/`, `~/.gemini/skills/`, `.agents/skills/`, and `~/.agents/skills/`.
+
+Verify the installation with:
+
+```bash
+gemini skills list --all
+```
+
+In an interactive session, `/skills list` shows discovered skills and `/skills reload` refreshes them.
+
+[Gemini CLI skill documentation](https://geminicli.com/docs/cli/skills/)
+
+### Cursor
+
+Cursor discovers project skills from `.cursor/skills/` or `.agents/skills/`, and personal skills from `~/.cursor/skills/` or `~/.agents/skills/`.
+
+Project installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .cursor/skills/convert-workbook-to-web-app
+```
+
+Personal installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.cursor/skills/convert-workbook-to-web-app"
+```
+
+You can also open **Customize → Rules → Add Rule → Remote Rule (GitHub)** and enter the repository URL. Invoke the installed skill as `/convert-workbook-to-web-app`.
+
+[Cursor skill documentation](https://cursor.com/docs/skills)
+
+### Windsurf
+
+Windsurf discovers workspace skills from `.windsurf/skills/` and global skills from `~/.codeium/windsurf/skills/`. It also recognizes `.agents/skills/` at workspace and user scope.
+
+Workspace installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .windsurf/skills/convert-workbook-to-web-app
+```
+
+Global installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.codeium/windsurf/skills/convert-workbook-to-web-app"
+```
+
+Invoke it in Cascade with `@convert-workbook-to-web-app`, or let Cascade select it when the request matches its description.
+
+[Windsurf skill documentation](https://docs.windsurf.com/windsurf/cascade/skills)
+
+### OpenCode
+
+OpenCode discovers project skills from `.opencode/skills/` and personal skills from `~/.config/opencode/skills/`. It also supports `.agents/skills/` and Claude-compatible skill locations.
+
+Project installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  .opencode/skills/convert-workbook-to-web-app
+```
+
+Personal installation:
+
+```bash
+git clone https://github.com/iamsatar/convert-workbook-to-web-app-skill.git \
+  "$HOME/.config/opencode/skills/convert-workbook-to-web-app"
+```
+
+OpenCode exposes discovered skills to its native `skill` tool and loads the full instructions when the agent selects the skill.
+
+[OpenCode skill documentation](https://opencode.ai/docs/skills/)
+
+### Updating an installation
+
+Because these examples use Git, update an installed copy from inside its directory:
+
+```bash
+git pull --ff-only
+```
+
+If a host does not immediately show an updated skill, use its skill reload command or begin a new agent session.
 ## Usage
 
 Provide the workbook and invoke the skill with a request such as:
